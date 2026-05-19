@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><i class="bi bi-file-earmark-text"></i> Todos os Contratos</h2>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Nome</th>
+            <th>Fornecedor</th>
+            <th>Vencimento</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in contratos %}
+        <tr>
+            <td>{{ c.numero_contrato }}</td>
+            <td>{{ c.nome }}</td>
+            <td>{{ c.fornecedor }}</td>
+            <td>{{ c.data_vencimento.strftime('%d/%m/%Y') }}</td>
+            <td>
+                {% if c.esta_vencido() %}
+                    <span class="badge bg-danger">Vencido</span>
+                {% elif c.dias_para_vencer() <= 30 %}
+                    <span class="badge bg-warning text-dark">{{ c.dias_para_vencer() }} dias</span>
+                {% else %}
+                    <span class="badge bg-success">Ativo</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ url_for('editar_contrato', id=c.id) }}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-pencil"></i>
+                </a>
+                <a href="{{ url_for('testar_email', id=c.id) }}" class="btn btn-sm btn-info">
+                    <i class="bi bi-envelope"></i>
+                </a>
+                <a href="{{ url_for('deletar_contrato', id=c.id) }}" class="btn btn-sm btn-danger" 
+                   onclick="return confirm('Confirma?')">
+                    <i class="bi bi-trash"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
