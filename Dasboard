@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><i class="bi bi-speedometer2"></i> Dashboard</h2>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5>Total de Contratos</h5>
+                <h2>{{ total_contratos }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5>Contratos Ativos</h5>
+                <h2>{{ contratos_ativos }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5>Contratos Vencidos</h5>
+                <h2>{{ contratos_vencidos|length }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if contratos_vencidos %}
+<div class="card mt-4 border-danger">
+    <div class="card-header bg-danger text-white">
+        <h5>⚠️ Contratos Vencidos</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Contrato</th>
+                    <th>Fornecedor</th>
+                    <th>Vencimento</th>
+                    <th>Dias Vencido</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in contratos_vencidos %}
+                <tr>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.fornecedor }}</td>
+                    <td>{{ c.data_vencimento.strftime('%d/%m/%Y') }}</td>
+                    <td><span class="badge bg-danger">{{ c.dias_para_vencer()|abs }} dias</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% if contratos_a_vencer %}
+<div class="card mt-4 border-warning">
+    <div class="card-header bg-warning">
+        <h5>⏰ Contratos a Vencer (30 dias)</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Contrato</th>
+                    <th>Fornecedor</th>
+                    <th>Vencimento</th>
+                    <th>Dias Restantes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in contratos_a_vencer %}
+                <tr>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.fornecedor }}</td>
+                    <td>{{ c.data_vencimento.strftime('%d/%m/%Y') }}</td>
+                    <td><span class="badge bg-warning text-dark">{{ c.dias_para_vencer() }} dias</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+{% extends "base.html" %}
+{% block content %}
+<h2><i class="bi bi-speedometer2"></i> Dashboard</h2>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5>Total de Contratos</h5>
+                <h2>{{ total_contratos }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5>Contratos Ativos</h5>
+                <h2>{{ contratos_ativos }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5>Contratos Vencidos</h5>
+                <h2>{{ contratos_vencidos|length }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if contratos_vencidos %}
+<div class="card mt-4 border-danger">
+    <div class="card-header bg-danger text-white">
+        <h5>⚠️ Contratos Vencidos</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Contrato</th>
+                    <th>Fornecedor</th>
+                    <th>Vencimento</th>
+                    <th>Dias Vencido</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in contratos_vencidos %}
+                <tr>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.fornecedor }}</td>
+                    <td>{{ c.data_vencimento.strftime('%d/%m/%Y') }}</td>
+                    <td><span class="badge bg-danger">{{ c.dias_para_vencer()|abs }} dias</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% if contratos_a_vencer %}
+<div class="card mt-4 border-warning">
+    <div class="card-header bg-warning">
+        <h5>⏰ Contratos a Vencer (30 dias)</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Contrato</th>
+                    <th>Fornecedor</th>
+                    <th>Vencimento</th>
+                    <th>Dias Restantes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in contratos_a_vencer %}
+                <tr>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.fornecedor }}</td>
+                    <td>{{ c.data_vencimento.strftime('%d/%m/%Y') }}</td>
+                    <td><span class="badge bg-warning text-dark">{{ c.dias_para_vencer() }} dias</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
